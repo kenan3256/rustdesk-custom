@@ -5,12 +5,25 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      
+      # Flutter'i kur
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+          
+      # Proje dizinine git
+      - name: Navigate to project
+        run: C:\Users\kenan\Desktop\rustdesk
+        shell: bash
+        
+      # Bağımlılıkları yükle
       - run: flutter pub get
+      
+      # Build işlemi
       - run: flutter build windows
+      
+      # Çıktıyı kaydet
       - uses: actions/upload-artifact@v4
         with:
           name: rustdesk.exe
-          path: build/windows/runner/Release/
+          path: rustdesk/build/windows/runner/Release/
