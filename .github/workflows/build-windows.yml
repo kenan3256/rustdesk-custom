@@ -11,16 +11,17 @@ jobs:
           channel: stable
           flutter-version: '3.29.3'
           
-      # Klasör kontrolü ekleyin
+      # Windows için PowerShell syntax'i kullanın
       - name: Check project structure
+        shell: pwsh
         run: |
-          ls -la
-          if [ -f "pubspec.yaml" ]; then
-            echo "Flutter project found in root"
-          else
-            echo "ERROR: Not a valid Flutter project!"
+          dir
+          if (Test-Path "pubspec.yaml") {
+            Write-Host "Flutter project found in root"
+          } else {
+            Write-Host "ERROR: Not a valid Flutter project!"
             exit 1
-          fi
+          }
           
       - run: flutter pub get
       - run: flutter build windows
