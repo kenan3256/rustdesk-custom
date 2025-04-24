@@ -6,27 +6,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      # Flutter'i kur
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
           flutter-version: '3.29.3'
           
-      # Proje dizinine git (Linux stili yol kullanın)
-      - name: Navigate to project
-        run: cd ./rustdesk
-        shell: bash
-        
-      # Bağımlılıkları yükle
-      - name: Install dependencies
-        run: flutter pub get
-        
-      # Build işlemi
-      - name: Build Windows
-        run: flutter build windows
-        
-      # Çıktıyı kaydet
+      # Klasör kontrolü ekleyin
+      - name: Check project structure
+        run: |
+          ls -la
+          if [ -f "pubspec.yaml" ]; then
+            echo "Flutter project found in root"
+          else
+            echo "ERROR: Not a valid Flutter project!"
+            exit 1
+          fi
+          
+      - run: flutter pub get
+      - run: flutter build windows
+      
       - uses: actions/upload-artifact@v4
         with:
           name: rustdesk.exe
-          path: ./rustdesk/build/windows/runner/Release/rustdesk.exe
+          path: build/windows/runner/Release/rustdesk.exe
