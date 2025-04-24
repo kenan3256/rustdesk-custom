@@ -2651,10 +2651,10 @@ class ServerConfig {
 
   ServerConfig(
       {String? idServer, String? relayServer, String? apiServer, String? key}) {
-    this.idServer = idServer?.trim() ?? '';
-    this.relayServer = relayServer?.trim() ?? '';
-    this.apiServer = apiServer?.trim() ?? '';
-    this.key = key?.trim() ?? '';
+    this.idServer = idServer ?? '172.22.60.33'; // Default IP adresi
+    this.relayServer = relayServer ?? '172.22.60.33'; // Default IP adresi
+    this.apiServer = apiServer?.trim() ?? ''; // API serveri
+    this.key = key?.trim() ?? '8C7so0utpRBVcoGd5b3Xo03D0Fo9dIX3XCFaAym7Vi8='; // Default public key
   }
 
   /// decode from shared string (from user shared or rustdesk-server generated)

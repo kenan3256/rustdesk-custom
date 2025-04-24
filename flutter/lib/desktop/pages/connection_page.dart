@@ -509,7 +509,9 @@ class _ConnectionPageState extends State<ConnectionPage>
             Padding(
               padding: const EdgeInsets.only(top: 13.0),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                SizedBox(
+              	 Visibility(
+        		visible: false, // false olduqda tamamilə gizlənəcək
+        		child: SizedBox(
                   height: 28.0,
                   child: ElevatedButton(
                     onPressed: () {
