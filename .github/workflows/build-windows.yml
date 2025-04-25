@@ -11,22 +11,26 @@ jobs:
           channel: stable
           flutter-version: '3.29.3'
           
-      # Windows için PowerShell syntax'i kullanın
-      - name: Check project structure
+      # Flutter proje dizinine geç
+      - name: Navigate to Flutter project
         shell: pwsh
         run: |
-          dir
-          if (Test-Path "pubspec.yaml") {
-            Write-Host "Flutter project found in root"
-          } else {
-            Write-Host "ERROR: Not a valid Flutter project!"
+          cd flutter
+          if (!(Test-Path "pubspec.yaml")) {
+            Write-Host "ERROR: pubspec.yaml not found in flutter directory!"
             exit 1
           }
           
-      - run: flutter pub get
-      - run: flutter build windows
+      # Tüm komutları flutter dizininde çalıştır
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: ./flutter
+      
+      - name: Build Windows
+        run: flutter build windows
+        working-directory: ./flutter
       
       - uses: actions/upload-artifact@v4
         with:
           name: rustdesk.exe
-          path: build/windows/runner/Release/rustdesk.exe
+          path: flutter/build/windows/runner/Release/rustdesk.exe
